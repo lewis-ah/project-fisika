@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Daftar Materi Fisika</h1>
+
+<!-- Form pencarian rumus -->
+<form method="get">
+    <input type="text" name="query" placeholder="Cari rumus fisika...">
+    <button type="submit">Cari</button>
+</form>
+
+{% if results %}
+    <h3>Hasil Pencarian Rumus:</h3>
+    <ul>
+    {% for rumus in results %}
+        <li><strong>{{ rumus.nama }}</strong>: {{ rumus.rumus }}</li>
+    {% endfor %}
+    </ul>
+{% elif request.args.get('query') %}
+    <p><em>Tidak ditemukan rumus dengan kata '{{ request.args.get('query') }}'.</em></p>
+{% endif %}
+
+<hr>
+
+<ul>
+{% for item in materi %}
+    <li><a href="{{ url_for('materi.detail_materi', id=item.id) }}">{{ item.judul }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

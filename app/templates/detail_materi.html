@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ materi.judul }}</h1>
+<p>{{ materi.isi }}</p>
+
+<hr>
+
+<h3>Cari Rumus Fisika Terkait:</h3>
+<form method="get">
+    <input type="text" name="query" placeholder="Contoh: kecepatan, gaya" value="{{ request.args.get('query', '') }}">
+    <button type="submit">Cari</button>
+</form>
+
+{% if results is not none %}
+    <h4>Hasil Pencarian:</h4>
+    {% if results %}
+        <ul>
+        {% for rumus in results %}
+            <li><strong>{{ rumus.nama }}</strong>: {{ rumus.rumus }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Tidak ditemukan rumus terkait.</p>
+    {% endif %}
+{% endif %}
+{% endblock %}
